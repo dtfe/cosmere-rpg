@@ -20,7 +20,7 @@ any> {
      */
     /* eslint-disable @typescript-eslint/unbound-method */
     static ACTIONS = {
-        'edit-img': this.onEditImg,
+        'edit-image': this.onEditImg,
     };
     /* eslint-enable @typescript-eslint/unbound-method */
 
@@ -32,12 +32,10 @@ any> {
             this.application.item.toObject(),
         );
 
-        void new foundry.applications.apps.FilePicker({
+        void new foundry.applications.apps.FilePicker.implementation({
             current: this.application.item.img!,
             type: 'image',
             redirectToRoot: [defaultImg],
-            // top: this.application.position.top + 40,
-            // left: this.application.position.left + 10,
             callback: (path) => {
                 void this.application.item.update({
                     img: path,
