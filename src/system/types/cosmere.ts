@@ -71,6 +71,12 @@ export const enum Resource {
     Investiture = 'inv',
 }
 
+export const enum Investiture {
+    Stormlight = 'stormlight',
+    Voidlight = 'voidlight',
+    Lifelight = 'lifelight',
+}
+
 export enum Skill {
     Agility = 'agi',
     Athletics = 'ath',

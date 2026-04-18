@@ -23,6 +23,16 @@
             </select>
         </div>        
     </div>
+    {{#if isInvestiture}}
+    <div class="form-group">
+        <label>{{localize "DIALOG.ConfigureResource.Texture"}}</label>
+        <div class="form-fields">
+            <select name="texture">
+                {{selectOptions textureChoices selected=texture}}
+            </select>
+        </div>
+    </div>
+    {{/if}}
     <div class="form-group submit">
         <button data-action="update-resource" type="submit">
             {{localize "GENERIC.Button.Update"}}

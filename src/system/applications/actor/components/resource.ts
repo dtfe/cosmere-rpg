@@ -1,4 +1,5 @@
 import { Resource } from '@system/types/cosmere';
+import { Investiture } from '@system/types/cosmere';
 import { ConstructorOf } from '@system/types/utils';
 import { Derived } from '@system/data/fields';
 import { SYSTEM_ID } from '@src/system/constants';
@@ -105,6 +106,10 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
         // Get value and max
         const value = resource.value;
         const max = resource.max.value;
+        const texture =
+            params.resource === Resource.Investiture
+                ? (resource.texture ?? Investiture.Stormlight)
+                : null;
 
         return Promise.resolve({
             ...context,
@@ -114,6 +119,7 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
                 label: config.label,
                 value,
                 max,
+                texture,
             },
         });
     }

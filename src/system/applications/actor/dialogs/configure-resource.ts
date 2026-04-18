@@ -1,4 +1,5 @@
 import { Resource } from '@system/types/cosmere';
+import { Investiture } from '@system/types/cosmere';
 import { CosmereActor } from '@system/documents';
 import { AnyObject } from '@system/types/utils';
 import { SYSTEM_ID } from '@src/system/constants';
@@ -80,6 +81,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             ) as CommonActorData['resources'][keyof CommonActorData['resources']];
         this.resourceData.max.override ??= this.resourceData.max.value ?? 0;
         this.mode = this.resourceData.max.mode;
+        this.resourceData.texture ??= Investiture.Stormlight;
     }
 
     /* --- Statics --- */
@@ -91,12 +93,19 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
     /* --- Actions --- */
 
     private static onUpdateResource(this: ConfigureResourceDialog) {
+        const isInvestiture = this.resourceId === Resource.Investiture;
+
         void this.actor.update({
             [`system.resources.${this.resourceId}`]: {
                 max: {
                     useOverride: this.resourceData.max.useOverride,
                     override: this.resourceData.max.override,
                 },
+                ...(isInvestiture
+                    ? {
+                          texture: this.resourceData.texture,
+                      }
+                    : {}),
             },
         });
         void this.close();
@@ -125,6 +134,14 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
         if (this.mode === Derived.Mode.Override && target.name === 'max')
             this.resourceData.max.override = formData.object.max as number;
 
+        // Assign investiture texture
+        if (
+            this.resourceId === Resource.Investiture &&
+            target.name === 'texture'
+        ) {
+            this.resourceData.texture = formData.object.texture as Investiture;
+        }
+
         // Render
         void this.render(true);
     }
@@ -147,7 +164,20 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             actor: this.actor,
             mode: this.mode,
             modes: Derived.Modes,
-            ...this.resourceData,
+            max: this.resourceData.max,
+            isInvestiture: this.resourceId === Resource.Investiture,
+            texture: this.resourceData.texture,
+            textureChoices: {
+                [Investiture.Stormlight]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Stormlight',
+                ),
+                [Investiture.Voidlight]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Voidlight',
+                ),
+                [Investiture.Lifelight]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Lifelight',
+                ),
+            },
             formula: config.formula,
         });
     }

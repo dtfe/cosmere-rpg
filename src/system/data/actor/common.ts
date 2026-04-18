@@ -4,6 +4,7 @@ import {
     MovementType,
     Attribute,
     Resource,
+    Investiture,
     AttributeGroup,
     Skill,
     DeflectSource,
@@ -262,6 +263,17 @@ function getResourcesSchema() {
                 nullable: false,
                 integer: true,
                 initial: 0,
+            }),
+            texture: new foundry.data.fields.StringField({
+                required: true,
+                nullable: false,
+                blank: false,
+                initial: Investiture.Stormlight,
+                choices: [
+                    Investiture.Stormlight,
+                    Investiture.Voidlight,
+                    Investiture.Lifelight,
+                ],
             }),
         });
 

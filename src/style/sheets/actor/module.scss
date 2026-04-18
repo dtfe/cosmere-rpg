@@ -1,6 +1,18 @@
 @import './character.scss';
 @import './adversary.scss';
 
+.application.sheet.actor .resource.inv.texture-lifelight {
+    --investiture-bar-texture-svg: var(--invest-lifelight-svg);
+}
+
+.application.sheet.actor .resource.inv.texture-voidlight {
+    --investiture-bar-texture-svg: var(--invest-voidlight-svg);
+}
+
+.application.sheet.actor .resource.inv.texture-stormlight {
+    --investiture-bar-texture-svg: var(--invest-stormlight-svg);
+}
+
 .application.sheet.actor {
     --border-sheet-corner-svg: url('assets/icons/svg/sheet/border_sheet_actor_corner.svg');
 
@@ -31,6 +43,12 @@
     --rest-long-svg: url('assets/icons/svg/sheet/rest_button_long.svg');
     --rest-short-svg: url('assets/icons/svg/sheet/rest_button_short.svg');
     --rest-scene-svg: url('assets/icons/svg/sheet/rest_button_scene.svg');     
+
+    // InvestitureSVGs
+    --invest-lifelight-svg: url('assets/icons/svg/sheet/invest_lifelight.svg');
+    --invest-voidlight-svg: url('assets/icons/svg/sheet/invest_voidlight.svg');
+    --invest-stormlight-svg: url('assets/icons/svg/sheet/invest_stormlight.svg');
+    --investiture-bar-texture-svg: var(--invest-stormlight-svg); // default/fallback
 
     > .window-corners {
         .corner {
@@ -652,7 +670,13 @@
                     }
 
                     .inner-bar {
-                        background-color: var(--cosmere-color-health-front);
+                        background: linear-gradient(
+                            0deg,
+                            var(--cosmere-color-health-front-edge) 0%,
+                            var(--cosmere-color-health-front-center) 50%,
+                            var(--cosmere-color-health-front-edge) 100%
+                        );
+                        animation: healthBarPlaceholder 1s linear infinite;
                     }
                 }
             }
@@ -664,7 +688,13 @@
                     }
                     
                     .inner-bar {
-                        background-color: var(--cosmere-color-focus-front);
+                        background: linear-gradient(
+                            0deg,
+                            var(--cosmere-color-focus-front-edge) 0%,
+                            var(--cosmere-color-focus-front-center) 50%,
+                            var(--cosmere-color-focus-front-edge) 100%
+                        );
+                        animation: focusBarPlaceholder 2.4s ease-in-out infinite;
                     }
                 }
             }
@@ -677,6 +707,11 @@
 
                     .inner-bar {
                         background-color: var(--cosmere-color-invest-front);
+                        background-image: var(--investiture-bar-texture-svg);
+                        background-position: 0 0;
+                        background-repeat: repeat-x;
+                        background-size: auto 100%;
+                        animation: investitureBarScroll 17s linear infinite;
                     }
                 }
             }
@@ -1023,6 +1058,38 @@
                 }
             }
         }
+    }
+}
+
+// Heartbeat-like weak flash aligned with 60 bpm
+@keyframes healthBarPlaceholder {
+    0%, 27.5%{
+        filter: brightness(1.1);
+    }
+    
+    10%, 22.5%, 37.5%, 95%{
+        filter:brightness(1);
+    }
+}
+
+// Slow breathing effect
+@keyframes focusBarPlaceholder {
+    0%, 100% {
+        filter:brightness(1);
+    }
+
+    50% {
+        filter:brightness(0.9);
+    }
+}
+
+@keyframes investitureBarScroll {
+    from {
+        // 720px is from this equation: svg width / svg height * bar height
+        background-position: -720px 0;
+    }
+    to {
+        background-position: 0 0;
     }
 }
 

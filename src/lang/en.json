@@ -1428,7 +1428,13 @@
             }
         },
         "ConfigureResource": {
-            "Title": "Configure Max {resource}: {actor}"
+            "Title": "Configure Max {resource}: {actor}",
+            "Texture": "Investiture Texture",
+            "TextureChoices": {
+                "Stormlight": "Stormlight",
+                "Voidlight": "Voidlight",
+                "Lifelight": "Lifelight"
+            }
         },
         "LongRest": {
             "ShouldPerform": "Perform Long Rest?"
