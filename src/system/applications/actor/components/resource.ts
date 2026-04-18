@@ -109,14 +109,14 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
         const max = resource.max.value;
 
         // Check if animations should be displayed
-        const useAnimations = game.settings.get(
+        const useFancyBars = game.settings.get(
             SYSTEM_ID,
             SETTINGS.SHEET_USE_FANCY_BARS,
         );
 
         // Only apply texture if setting is enabled
         const texture =
-            useAnimations && params.resource === Resource.Investiture
+            useFancyBars && params.resource === Resource.Investiture
                 ? (resource.texture ?? Investiture.Stormlight)
                 : null;
 
@@ -129,7 +129,7 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
                 value,
                 max,
                 texture,
-                animated: useAnimations,
+                animated: useFancyBars,
             },
         });
     }
