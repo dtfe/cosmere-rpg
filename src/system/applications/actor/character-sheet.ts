@@ -119,7 +119,8 @@ export class CharacterSheet extends BaseActorSheet {
 
         if (width === clampedWidth && height === clampedHeight) return;
 
-        this.isApplyingPositionConstraint = true; // Since we are setting the position, this will set off the _onPosition event. We ensure this code wont loop forever.
+        // Since we are setting the position, this will set off the _onPosition event. We ensure this code wont loop forever.
+        this.isApplyingPositionConstraint = true;
         this.setPosition({
             width: clampedWidth,
             height: clampedHeight,
