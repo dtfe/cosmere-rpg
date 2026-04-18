@@ -16,6 +16,7 @@ export const SETTINGS = {
     APPLY_BUTTONS_TO: 'applyButtonsTo',
     SHEET_EXPAND_DESCRIPTION_DEFAULT: 'expandDescriptionByDefault',
     SHEET_SKILL_INCDEC_TOGGLE: 'skillIncrementDecrementToggle',
+    SHEET_USE_FANCY_BARS: 'useFancyBars',
     SYSTEM_THEME: 'systemTheme',
 } as const;
 
@@ -39,6 +40,8 @@ type SystemSettingsConfig = {
     [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_EXPAND_DESCRIPTION_DEFAULT}`]: boolean;
 } & {
     [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_SKILL_INCDEC_TOGGLE}`]: boolean;
+} & {
+    [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_USE_FANCY_BARS}`]: boolean;
 } & { [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SYSTEM_THEME}`]: Theme };
 
 type SystemSettingKey = (typeof SETTINGS)[keyof typeof SETTINGS];
@@ -81,6 +84,11 @@ export function registerSystemSettings() {
         {
             name: SETTINGS.SHEET_SKILL_INCDEC_TOGGLE,
             default: false,
+            scope: 'client',
+        },
+        {
+            name: SETTINGS.SHEET_USE_FANCY_BARS,
+            default: true,
             scope: 'client',
         },
     ];

@@ -3,6 +3,7 @@ import { Investiture } from '@system/types/cosmere';
 import { ConstructorOf } from '@system/types/utils';
 import { Derived } from '@system/data/fields';
 import { SYSTEM_ID } from '@src/system/constants';
+import { SETTINGS } from '@src/system/settings';
 import { TEMPLATES } from '@src/system/utils/templates';
 
 // Dialog
@@ -106,8 +107,16 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
         // Get value and max
         const value = resource.value;
         const max = resource.max.value;
+
+        // Check if animations should be displayed
+        const useAnimations = game.settings.get(
+            SYSTEM_ID,
+            SETTINGS.SHEET_USE_FANCY_BARS,
+        );
+
+        // Only apply texture if setting is enabled
         const texture =
-            params.resource === Resource.Investiture
+            useAnimations && params.resource === Resource.Investiture
                 ? (resource.texture ?? Investiture.Stormlight)
                 : null;
 
@@ -120,6 +129,7 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
                 value,
                 max,
                 texture,
+                animated: useAnimations,
             },
         });
     }

@@ -676,6 +676,13 @@
                             var(--cosmere-color-health-front-center) 50%,
                             var(--cosmere-color-health-front-edge) 100%
                         );
+                    }
+                }
+            }
+
+            &.hea.with-animations {
+                .bar .container {
+                    .inner-bar {
                         animation: healthBarPlaceholder 1s linear infinite;
                     }
                 }
@@ -694,6 +701,13 @@
                             var(--cosmere-color-focus-front-center) 50%,
                             var(--cosmere-color-focus-front-edge) 100%
                         );
+                    }
+                }
+            }
+
+            &.foc.with-animations {
+                .bar .container {
+                    .inner-bar {
                         animation: focusBarPlaceholder 2.4s ease-in-out infinite;
                     }
                 }
@@ -706,7 +720,19 @@
                     }
 
                     .inner-bar {
-                        background-color: var(--cosmere-color-invest-front);
+                        background: linear-gradient(
+                            0deg,
+                            var(--cosmere-color-invest-front-edge) 0%,
+                            var(--cosmere-color-invest-front-center) 50%,
+                            var(--cosmere-color-invest-front-edge) 100%
+                        );
+                    }
+                }
+            }
+
+            &.inv.with-animations {
+                .bar .container {
+                    .inner-bar {
                         background-image: var(--investiture-bar-texture-svg);
                         background-position: 0 0;
                         background-repeat: repeat-x;

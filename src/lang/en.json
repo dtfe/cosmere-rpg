@@ -1708,6 +1708,10 @@
             "name": "Enable Skill Pip Increment Behavior",
             "hint": "Determines whether the skill pips increment/decrement on left click or right click, rather than setting to the clicked rank."
         },
+        "useFancyBars": {
+            "name": "Use Fancy Bars",
+            "hint": "Display animated effects on resource bars including investiture textures, health heartbeat, and focus breathing. When disabled, bars display with static colors."
+        },
         "systemTheme": {
             "name": "Preferred System Theme",
             "hint": "Specify the themed set of colours to use for system documents and interface elements. The selected theme will respect the preferred Dark/Light mode selected in the core settings."
