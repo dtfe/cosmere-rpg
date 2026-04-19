@@ -72,9 +72,11 @@ export const enum Resource {
 }
 
 export const enum Investiture {
-    Stormlight = 'stormlight',
-    Voidlight = 'voidlight',
-    Lifelight = 'lifelight',
+    Default = 'default',
+    None = 'none',
+    Blue = 'blue',
+    Purple = 'purple',
+    Green = 'green',
 }
 
 export enum Skill {

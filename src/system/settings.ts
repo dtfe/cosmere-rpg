@@ -1,5 +1,5 @@
 import { SYSTEM_ID } from './constants';
-import { Theme } from './types/cosmere';
+import { Investiture, Theme } from './types/cosmere';
 import { setTheme } from './utils/templates';
 
 /**
@@ -17,6 +17,7 @@ export const SETTINGS = {
     SHEET_EXPAND_DESCRIPTION_DEFAULT: 'expandDescriptionByDefault',
     SHEET_SKILL_INCDEC_TOGGLE: 'skillIncrementDecrementToggle',
     SHEET_USE_FANCY_BARS: 'useFancyBars',
+    SHEET_INVESTITURE_DEFAULT_TEXTURE: 'investDefaultTexture',
     SYSTEM_THEME: 'systemTheme',
 } as const;
 
@@ -42,9 +43,21 @@ type SystemSettingsConfig = {
     [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_SKILL_INCDEC_TOGGLE}`]: boolean;
 } & {
     [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_USE_FANCY_BARS}`]: boolean;
+} & {
+    [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SHEET_INVESTITURE_DEFAULT_TEXTURE}`]: Investiture;
 } & { [key in `${typeof SYSTEM_ID}.${typeof SETTINGS.SYSTEM_THEME}`]: Theme };
 
 type SystemSettingKey = (typeof SETTINGS)[keyof typeof SETTINGS];
+
+function refreshOpenActorSheets() {
+    game.actors.forEach((actor) => {
+        Object.values(actor.apps).forEach((app) => {
+            if (app.rendered) {
+                void app.render(true);
+            }
+        });
+    });
+}
 
 export const enum TargetingOptions {
     SelectedOnly = 0,
@@ -103,6 +116,38 @@ export function registerSystemSettings() {
             default: option.default,
         });
     });
+
+    game.settings.register(
+        SYSTEM_ID,
+        SETTINGS.SHEET_INVESTITURE_DEFAULT_TEXTURE,
+        {
+            name: game.i18n.localize(
+                `SETTINGS.${SETTINGS.SHEET_INVESTITURE_DEFAULT_TEXTURE}.name`,
+            ),
+            hint: game.i18n.localize(
+                `SETTINGS.${SETTINGS.SHEET_INVESTITURE_DEFAULT_TEXTURE}.hint`,
+            ),
+            scope: 'client',
+            config: true,
+            type: String,
+            default: Investiture.None,
+            choices: {
+                [Investiture.None]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.None',
+                ),
+                [Investiture.Blue]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Blue',
+                ),
+                [Investiture.Purple]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Purple',
+                ),
+                [Investiture.Green]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Green',
+                ),
+            },
+            onChange: refreshOpenActorSheets, // Refreshes actor sheets immediately upon saving changes to default texture
+        },
+    );
 
     // DIALOG SKIP SETTINGS
     const dialogOptions = [

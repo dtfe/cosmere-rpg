@@ -268,11 +268,13 @@ function getResourcesSchema() {
                 required: true,
                 nullable: false,
                 blank: false,
-                initial: Investiture.Stormlight,
+                initial: Investiture.Default,
                 choices: [
-                    Investiture.Stormlight,
-                    Investiture.Voidlight,
-                    Investiture.Lifelight,
+                    Investiture.Default,
+                    Investiture.None,
+                    Investiture.Blue,
+                    Investiture.Purple,
+                    Investiture.Green,
                 ],
             }),
         });

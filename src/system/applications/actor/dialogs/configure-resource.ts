@@ -81,7 +81,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             ) as CommonActorData['resources'][keyof CommonActorData['resources']];
         this.resourceData.max.override ??= this.resourceData.max.value ?? 0;
         this.mode = this.resourceData.max.mode;
-        this.resourceData.texture ??= Investiture.Stormlight;
+        this.resourceData.texture ??= Investiture.None;
     }
 
     /* --- Statics --- */
@@ -168,14 +168,20 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             isInvestiture: this.resourceId === Resource.Investiture,
             texture: this.resourceData.texture,
             textureChoices: {
-                [Investiture.Stormlight]: game.i18n.localize(
-                    'DIALOG.ConfigureResource.TextureChoices.Stormlight',
+                [Investiture.Default]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Default',
                 ),
-                [Investiture.Voidlight]: game.i18n.localize(
-                    'DIALOG.ConfigureResource.TextureChoices.Voidlight',
+                [Investiture.None]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.None',
                 ),
-                [Investiture.Lifelight]: game.i18n.localize(
-                    'DIALOG.ConfigureResource.TextureChoices.Lifelight',
+                [Investiture.Blue]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Blue',
+                ),
+                [Investiture.Purple]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Purple',
+                ),
+                [Investiture.Green]: game.i18n.localize(
+                    'DIALOG.ConfigureResource.TextureChoices.Green',
                 ),
             },
             formula: config.formula,

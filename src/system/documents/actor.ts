@@ -11,6 +11,7 @@ import {
     Size,
     RestType,
     ImmunityType,
+    Investiture,
 } from '@system/types/cosmere';
 import { Talent, TalentTree } from '@system/types/item';
 import {
@@ -172,6 +173,30 @@ abstract class _Actor<
 export class CosmereActor<
     out SubType extends Actor.SubType = Actor.SubType,
 > extends _Actor<SubType> {
+    public static migrateData(source: unknown) {
+        const actorSource = source as {
+            system?: { resources?: { inv?: { texture?: unknown } } };
+        };
+        const texture = actorSource.system?.resources?.inv?.texture;
+
+        if (
+            typeof texture === 'string' &&
+            texture !== Investiture.Default &&
+            texture !== Investiture.None &&
+            texture !== Investiture.Blue &&
+            texture !== Investiture.Purple &&
+            texture !== Investiture.Green
+        ) {
+            if (actorSource.system?.resources?.inv) {
+                actorSource.system.resources.inv.texture = Investiture.Default;
+            }
+        }
+
+        // NOTE: Use any as workaround for foundry-vtt-types issues
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return super.migrateData(source as any);
+    }
+
     /* --- Accessors --- */
 
     public get conditions(): Set<Status> {

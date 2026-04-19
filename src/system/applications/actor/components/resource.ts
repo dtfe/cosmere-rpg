@@ -3,7 +3,7 @@ import { Investiture } from '@system/types/cosmere';
 import { ConstructorOf } from '@system/types/utils';
 import { Derived } from '@system/data/fields';
 import { SYSTEM_ID } from '@src/system/constants';
-import { SETTINGS } from '@src/system/settings';
+import { getSystemSetting, SETTINGS } from '@src/system/settings';
 import { TEMPLATES } from '@src/system/utils/templates';
 
 // Dialog
@@ -114,10 +114,16 @@ export class ActorResourceComponent extends HandlebarsApplicationComponent<
             SETTINGS.SHEET_USE_FANCY_BARS,
         );
 
+        const defaultTexture = getSystemSetting<Investiture>(
+            SETTINGS.SHEET_INVESTITURE_DEFAULT_TEXTURE,
+        );
+
         // Only apply texture if setting is enabled
         const texture =
             useFancyBars && params.resource === Resource.Investiture
-                ? (resource.texture ?? Investiture.Stormlight)
+                ? resource.texture === Investiture.Default
+                    ? defaultTexture
+                    : resource.texture
                 : null;
 
         return Promise.resolve({
