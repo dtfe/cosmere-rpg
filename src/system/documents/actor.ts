@@ -188,6 +188,7 @@ export class CosmereActor<
             texture !== Investiture.Green
         ) {
             if (actorSource.system?.resources?.inv) {
+                // Ensure if the variable names have changed, for whatever reason, it will revert to default if the previous variable names are no longer valid
                 actorSource.system.resources.inv.texture = Investiture.Default;
             }
         }
