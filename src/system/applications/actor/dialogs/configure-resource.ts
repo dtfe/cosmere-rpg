@@ -49,6 +49,9 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
     );
     /* eslint-enable @typescript-eslint/unbound-method */
 
+    private get isInvestiture() {
+        return this.resourceId === Resource.Investiture;
+    }
     private resourceData: CommonActorData['resources'][keyof CommonActorData['resources']];
     private mode: Derived.Mode;
 
@@ -81,7 +84,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             ) as CommonActorData['resources'][keyof CommonActorData['resources']];
         this.resourceData.max.override ??= this.resourceData.max.value ?? 0;
         this.mode = this.resourceData.max.mode;
-        this.resourceData.texture ??= Investiture.None;
+        this.resourceData.texture ??= Investiture.Default;
     }
 
     /* --- Statics --- */
@@ -93,15 +96,13 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
     /* --- Actions --- */
 
     private static onUpdateResource(this: ConfigureResourceDialog) {
-        const isInvestiture = this.resourceId === Resource.Investiture;
-
         void this.actor.update({
             [`system.resources.${this.resourceId}`]: {
                 max: {
                     useOverride: this.resourceData.max.useOverride,
                     override: this.resourceData.max.override,
                 },
-                ...(isInvestiture
+                ...(this.isInvestiture
                     ? {
                           texture: this.resourceData.texture,
                       }
@@ -135,10 +136,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             this.resourceData.max.override = formData.object.max as number;
 
         // Assign investiture texture
-        if (
-            this.resourceId === Resource.Investiture &&
-            target.name === 'texture'
-        ) {
+        if (this.isInvestiture && target.name === 'texture') {
             this.resourceData.texture = formData.object.texture as Investiture;
         }
 
@@ -165,7 +163,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
             mode: this.mode,
             modes: Derived.Modes,
             max: this.resourceData.max,
-            isInvestiture: this.resourceId === Resource.Investiture,
+            isInvestiture: this.isInvestiture,
             texture: this.resourceData.texture,
             textureChoices: {
                 [Investiture.Default]: game.i18n.localize(
