@@ -1,5 +1,4 @@
-import { Resource } from '@system/types/cosmere';
-import { Investiture } from '@system/types/cosmere';
+import { Resource, Investiture } from '@system/types/cosmere';
 import { ConstructorOf } from '@system/types/utils';
 import { Derived } from '@system/data/fields';
 import { SYSTEM_ID } from '@src/system/constants';

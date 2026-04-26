@@ -1,5 +1,4 @@
-import { Resource } from '@system/types/cosmere';
-import { Investiture } from '@system/types/cosmere';
+import { Resource, Investiture } from '@system/types/cosmere';
 import { CosmereActor } from '@system/documents';
 import { AnyObject } from '@system/types/utils';
 import { SYSTEM_ID } from '@src/system/constants';
@@ -49,7 +48,7 @@ export class ConfigureResourceDialog extends HandlebarsApplicationMixin(
     );
     /* eslint-enable @typescript-eslint/unbound-method */
 
-    private get isInvestiture() {
+    private get isInvestiture(): boolean {
         return this.resourceId === Resource.Investiture;
     }
     private resourceData: CommonActorData['resources'][keyof CommonActorData['resources']];
