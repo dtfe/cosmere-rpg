@@ -1187,6 +1187,13 @@ const COSMERE: CosmereRPGConfig = {
                         dynamic: {},
                     },
                 },
+
+                talents: {
+                    sections: {
+                        static: {},
+                        dynamic: {},
+                    },
+                },
             },
         },
     },
