@@ -1,5 +1,6 @@
 import { TurnSpeed } from '@system/types/cosmere';
 
+import { HOOKS } from '@system/constants/hooks';
 import { CosmereCombatant } from './combatant';
 
 // Constants
@@ -21,7 +22,15 @@ export class CosmereCombat extends Combat {
 
     override async nextRound(): Promise<this> {
         this.resetActivations();
-        return super.nextRound();
+
+        const previousRound = this.round;
+        const combat = await super.nextRound();
+        const newRound = this.round;
+
+        Hooks.callAll(HOOKS.COMBAT_ROUND_END, this, previousRound, newRound);
+
+        Hooks.callAll(HOOKS.COMBAT_ROUND_START, this, previousRound, newRound);
+        return combat;
     }
 
     override setupTurns(): CosmereCombatant[] {
