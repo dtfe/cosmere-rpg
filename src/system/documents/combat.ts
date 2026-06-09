@@ -1,10 +1,10 @@
 import { TurnSpeed } from '@system/types/cosmere';
 
-import { HOOKS } from '@system/constants/hooks';
 import { CosmereCombatant } from './combatant';
 
 // Constants
 import { SYSTEM_ID } from '@system/constants';
+import { HOOKS } from '@system/constants/hooks';
 
 export class CosmereCombat extends Combat {
     /**
