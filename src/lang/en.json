@@ -20,6 +20,7 @@
                     "name": "Expertise",
                     "Armor": "Armor",
                     "Cultural": "Cultural",
+                    "Language": "Language",
                     "Specialist": "Specialist",
                     "Utility": "Utility",
                     "Weapon": "Weapon"

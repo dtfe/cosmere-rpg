@@ -139,6 +139,7 @@ export const enum ArmorId {}
 export const enum ExpertiseType {
     Armor = 'armor',
     Cultural = 'cultural',
+    Language = 'language',
     Specialist = 'specialist',
     Utility = 'utility',
     Weapon = 'weapon',

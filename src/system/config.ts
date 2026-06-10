@@ -912,6 +912,10 @@ const COSMERE: CosmereRPGConfig = {
             configRegistryKey: 'cultures',
             icon: 'far fa-earth-asia',
         },
+        [ExpertiseType.Language]: {
+            label: 'COSMERE.Actor.Character.Expertise.Language',
+            icon: 'fas fa-comment',
+        },
         [ExpertiseType.Specialist]: {
             label: 'COSMERE.Actor.Character.Expertise.Specialist',
             icon: 'fas fa-award',
