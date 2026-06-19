@@ -629,17 +629,20 @@ export function toServerViewObject(
                 collectionName,
             ) as AnyObject[] | undefined;
             if (!collectionData) return;
-
-            foundry.utils.setProperty(
-                obj,
-                collectionName,
-                collectionData.map((doc) =>
-                    toServerViewObject(
-                        doc,
-                        embeddedName as foundry.abstract.Document.Type,
+            if (Array.isArray(collectionData)) {
+                foundry.utils.setProperty(
+                    obj,
+                    collectionName,
+                    collectionData.map((doc) =>
+                        toServerViewObject(
+                            doc,
+                            embeddedName as foundry.abstract.Document.Type,
+                        ),
                     ),
-                ),
-            );
+                );
+            } else {
+                foundry.utils.setProperty(obj, collectionName, collectionData);
+            }
         },
     );
 
